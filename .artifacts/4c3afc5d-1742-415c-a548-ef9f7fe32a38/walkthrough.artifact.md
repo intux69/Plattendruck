@@ -1,24 +1,20 @@
-# Walkthrough: Modernes App-Icon Design
+# Walkthrough: Fix für Gradle Upgrade & Icon-Status
 
-Ich habe das Standard-Android-Icon durch ein maßgeschneidertes, professionelles Design ersetzt, das exakt zur fachlichen Ausrichtung der **Plattendruck-App** passt.
+Ich habe die notwendigen Bereinigungen vorgenommen, um das Upgrade des Android Gradle Plugins zu ermöglichen und den Status deines neuen Icons überprüft.
 
 ## Highlights der Änderungen
 
-### 1. Fachspezifische Symbolik
-Das neue Icon vermittelt auf den ersten Blick den Zweck der App:
-- **Lastplatte**: Ein markanter Doppelkreis symbolisiert die kreisförmige Lastplatte.
-- **Druck-Pfeil**: Ein zentraler Pfeil nach unten verdeutlicht die Belastung (Druck).
-- **Messkurve**: Eine angedeutete Linie im Hintergrund schlägt die Brücke zur grafischen Auswertung.
+### 1. Upgrade-Blockade behoben
+- **gradle.properties**: Die veraltete Eigenschaft `android.defaults.buildfeatures.buildconfig` wurde entfernt.
+- **Ergebnis**: Der Android Studio Upgrade-Assistent sollte nun nicht mehr blockiert sein und du kannst das Upgrade auf AGP 9.x (oder die gewünschte Version) durchführen.
 
-### 2. Marken-Farben
-- Das gesamte Logo ist in deiner gewählten Primärfarbe `#D70751` gestaltet.
-- Der saubere weiße Hintergrund sorgt für maximale Sichtbarkeit und einen modernen Look auf dem Home-Screen.
-
-### 3. Adaptive Technik
-- Das Icon wurde als **Adaptive Icon** umgesetzt. Es passt sich somit perfekt an die Systemvorgaben des jeweiligen Handys an (rund auf Pixel-Geräten, abgerundete Quadrate auf Samsung, etc.).
+### 2. App-Icon Status
+- Das neue Icon ist aktiv und wird korrekt auf dem Home-Screen angezeigt.
+- Es nutzt das moderne Adaptive-Icon-Format, was für eine saubere Darstellung auf allen aktuellen Android-Geräten sorgt.
 
 ## Verifikation
-- Das neue Icon ist nach dem Deployment auf dem Emulator sofort sichtbar und fügt sich professionell in die App-Liste ein.
+- **Gradle Sync**: Erfolgreich abgeschlossen.
+- **Build**: Die App lässt sich fehlerfrei bauen (`assembleDebug`).
+- **Live-Check**: Die App wurde auf dem Emulator gestartet, das Icon ist sichtbar und die Berechnungslogik funktioniert einwandfrei.
 
-render_diffs(file:///home/intux/AndroidStudioProjects/Plattendruck/app/src/main/res/drawable/ic_launcher_background.xml)
-render_diffs(file:///home/intux/AndroidStudioProjects/Plattendruck/app/src/main/res/drawable-v24/ic_launcher_foreground.xml)
+render_diffs(file:///home/intux/AndroidStudioProjects/Plattendruck/gradle.properties)

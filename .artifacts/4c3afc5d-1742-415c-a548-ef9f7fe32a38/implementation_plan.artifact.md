@@ -1,37 +1,28 @@
-# Vorbereitung der Release-Signierung für den Play Store
+# Einbindung des benutzerdefinierten App-Icons
 
-Dieses Dokument beschreibt die Schritte, um die App mit deinem vorhandenen Keystore (`Plattendruck.jks`) zu signieren, damit ein Update im Play Store möglich ist.
+In diesem Schritt wird das von dir bereitgestellte Bild `Plattendruck 2.0.png` als neues offizielles App-Icon integriert.
 
 ## User Review Required
 
 > [!IMPORTANT]
-> **Keystore-Passwörter:** Ich werde die Konfiguration so vorbereiten, dass die App beim Bauen (Build) auf deinen Keystore zugreift. Aus Sicherheitsgründen solltest du Passwörter **niemals** direkt in den Code schreiben. Wir nutzen dafür eine separate Datei, die nicht in Git gespeichert wird.
-> **Pfad zum Keystore:** Ich habe die Datei unter `/home/intux/Android Plattendruck App/Plattendruck.jks` gefunden.
+> **Adaptive Icon Format:** Ich werde dein Bild als Vordergrund-Ebene für das Android Adaptive Icon verwenden. Da moderne Handys die Form des Icons (rund, quadratisch, etc.) selbst bestimmen, wird das Bild in einen weißen Container eingebettet, um eine perfekte Darstellung auf allen Geräten zu garantieren.
+> **Pfad:** Ich kopiere das Bild direkt von deinem Schreibtisch in die App-Ressourcen.
 
 ## Proposed Changes
 
-### 1. Konfigurationsdatei für Passwörter
-#### [NEW] `keystore.properties` (im Projekt-Root)
-Ich erstelle eine Vorlage für diese Datei. Du musst dort später deine echten Passwörter und den "Alias" (den Namen des Schlüssels im Keystore) eintragen.
-```properties
-storePassword=DEIN_PASSWORT
-keyPassword=DEIN_PASSWORT
-keyAlias=DEIN_ALIAS
-storeFile=/home/intux/Android Plattendruck App/Plattendruck.jks
-```
+### 1. Bild-Import
+- Kopieren der Datei `/home/intux/Schreibtisch/Plattendruck 2.0.png` in den Projektordner `app/src/main/res/drawable/` unter dem Namen `ic_launcher_custom.png`.
 
-### 2. Anpassung der Build-Konfiguration
-#### [MODIFY] [app/build.gradle](file:///home/intux/AndroidStudioProjects/Plattendruck/app/build.gradle)
-- Hinzufügen einer Logik, die die `keystore.properties` Datei einliest.
-- Definition eines `release` Signing-Configs.
-- Verknüpfung des `release` Build-Types mit dieser Signatur.
+### 2. Icon-Konfiguration
+#### [MODIFY] [ic_launcher.xml](file:///home/intux/AndroidStudioProjects/Plattendruck/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml)
+- Umstellung des `foreground`-Attributs auf das neue Bild `@drawable/ic_launcher_custom`.
 
-### 3. Git-Schutz
-#### [MODIFY] [.gitignore](file:///home/intux/AndroidStudioProjects/Plattendruck/.gitignore)
-- Sicherstellen, dass die `keystore.properties` Datei **nicht** in Git hochgeladen wird, damit deine Passwörter privat bleiben.
+#### [MODIFY] [ic_launcher_round.xml](file:///home/intux/AndroidStudioProjects/Plattendruck/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml)
+- Umstellung des `foreground`-Attributs auf das neue Bild `@drawable/ic_launcher_custom`.
 
 ## Verification Plan
 
 ### Manual Verification
-- Nach der Konfiguration führen wir einen Test-Build durch (`./gradlew assembleRelease`).
-- Wenn die Passwörter korrekt sind, wird eine signierte APK/AAB erzeugt, die du direkt in den Play Store hochladen kannst.
+- Deployment der App auf den Emulator.
+- Sichtprüfung des Icons auf dem Home-Screen und in der App-Liste.
+- Test, ob das Icon auch in der Task-Übersicht korrekt erscheint.
